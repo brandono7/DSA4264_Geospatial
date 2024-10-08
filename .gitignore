@@ -1,2 +1,6 @@
 # Ignore data folder
 data/
+# Ignore CSV, XLS, and XLSX files
+*.csv
+*.xls
+*.xlsx
