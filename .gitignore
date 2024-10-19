@@ -5,3 +5,4 @@ data/
 *.xls
 *.xlsx
 .venv
+.venv/*
