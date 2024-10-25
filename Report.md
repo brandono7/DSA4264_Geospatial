@@ -26,16 +26,44 @@ The focus of this report is to identify bus routes that run parallel to existing
 The data collection will involve using publicly available datasets to analyze the bus routes that overlap with MRT lines. We will extract information on route paths, timing, and ridership estimates from these open datasets, along with additional information on MRT coverage and the population density of affected areas.
 
 ### 3.2. Algorithm Used
+Consider the simple example below to get a sense of how the algorithm works. We have a bus line (a bus line or bus route is defined as a given bus service with a direction) and a fictional DTL MRT line in this example. For each of the bus stops along this route, we calculate the distance to the nearest DTL MRT station. The distances we collect are [10m, 30m, 40m, 20m, 10m]. Therefore the median distance is 20m. The implication is that if a person is at one of the bus stops trying to board the bus, an alternative path for him is to take the DTL line and he is expected to walk an average of 20 meters to and from the MRT station. 
 
-The methodology for determining which bus routes to prioritize for removal or rerouting involves calculating a Weighted Sum of Total Distance for each bus line. The steps of the algorithm are as follows:
+<img src="images/example_bus_algorithm.png" alt="Bus Algorithm Concept" width="60%">
 
-1. **For each bus line**, identify every bus stop along its route.
-2. **For each bus stop**, find the nearest MRT station and calculate the distance between the bus stop and the MRT station.
-3. **Assign a weight to each bus stop** based on the number of passengers tapping in and out (tap-in/tap-out data), which serves as a proxy for the importance of that bus stop.
-4. **Calculate the weighted sum of the total distance** for the entire bus line by multiplying the distance between each bus stop and its nearest MRT station by the respective weight (tap-in/tap-out).
-5. **Identify the bus line with the longest weighted total distance**, which suggests that the bus line is less redundant with the MRT system and may be a candidate for service removal or rerouting.
+Ceteris Paribus, we can imagine that if the median distance is short, the bus service is redundant as commuters can just take the DTL line. So, that is the motivation for our project. The question we tackle is, **"Are there any bus routes that have a short median distance to a MRT line?"**
 
-This approach ensures that bus stops with higher passenger traffic (as indicated by tap-in/tap-out data) are given more importance in the analysis. The bus line with the highest overall weighted distance will be prioritized for modification, as it offers the most overlap with MRT services but still serves critical stops for commuters.
+Median instead of mean is chosen to avoid the impact of outlier distances. We want to get the typical distance a commuter has to walk, and not the average distance he has to walk. 
+
+First, we did an ETL process in the **get_nearest_mrt_to_bus_stops.ipynb** file, using the geospatial data of the MRT stations from **data/mrt_stations_with_geo_data.csv** and the geospatial data of the bus stops from **data/Train Station Codes and Chinese Names.xls** to create **processed_data/bus_stops_with_nearest_mrt_data.csv**. In this new csv, we have the bus stop code as the primary key. For each row, we have the distance of the nearest MRT station for each MRT line and the names of these MRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Brash Basah MRT and the distance between them is 593 metres.
+
+<img src="images/Example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="20%">
+
+After running that script, we run the **Bus Algorithm.ipynb** script. In this script, we read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It does the following algorithm:
+
+```
+hashmap_bus_line = {}
+For each bus_line:
+    hashmap_mrt_line = {}
+
+    For each mrt_line:
+        distances = []
+
+        For each bus_stop in bus_line:
+            distance_to_mrt = get_nearest_distance(bus_stop,mrt_line)
+            distances.append(distance_to_mrt)
+            
+        hashmap_mrt_line[mrt_line] = median(distances)
+    
+    hashmap_bus_line[bus_line] = hashmap_mrt_line
+```
+
+This algorithm will result in a hashmap (python dictionary) of hashmaps. The script then converts it into a csv and stores it in **processed_data/busline_score.csv**. A sample of this csv is below:
+
+<img src="example_busline_score_csv.png" alt="E.g. example busline scores csv" width="20%">
+
+
+
+
 
 ### 3.3. Technical Assumptions
 
