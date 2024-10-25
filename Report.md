@@ -73,3 +73,12 @@ From a business perspective, removing redundant services or rerouting these bus 
 With better data, we can increase service efficiency and direct resources where they are most needed, leading to overall improved public transportation service.
 
 
+### Screenshots of Visualization:
+
+![photo_2024-10-25_21-37-32](https://github.com/user-attachments/assets/029b2899-a65c-48b5-a72b-1fd2c03b0727)
+![photo_2024-10-25_21-37-30](https://github.com/user-attachments/assets/db21ef3f-90e3-4dcd-a97e-2f4175b71d5f)
+![photo_2024-10-25_21-37-28](https://github.com/user-attachments/assets/13a6cd52-7333-4044-b46a-34fccc2ad4ab)
+![photo_2024-10-25_21-37-25](https://github.com/user-attachments/assets/c5997e22-5144-4d69-99f5-9410539c298e)
+![photo_2024-10-25_21-37-23](https://github.com/user-attachments/assets/8cc335de-2227-4a8e-81ac-92c910b7eb6d)
+
+
