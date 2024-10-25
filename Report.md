@@ -73,9 +73,56 @@ As we are trying to find bus routes that can be replaced by an MRT line, we assu
 
 ## 4. Findings: What did you find?
 
-### 4.1. Results
-Remember to put summary table
+### 4.1 Results
 
-### 4.2. Discussion
+After analyzing bus routes 163A and 384 along with the previously provided lines, I have summarized whether they run parallel to MRT/LRT lines and where redundancies may exist. Here's an updated summary table:
 
-### 4.3. Recommendation
+| **Bus Line** | **Route Parallel to MRT/LRT** | **Details** |
+|--------------|-------------------------------|-------------|
+| 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS  ) | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. |
+| 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS  ) | Yes (Partial) | Closely follows the Bukit Panjang LRT Line, offering some coverage near Patir stations but still mostly require some waliking distance. |
+| 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS  ) | Yes (Partial) | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Heat Hong, but still mostly require some waliking distance. |
+| 163A (Sengkang Int → Bef Sengkang West Rd, 1 ROUTE ∙ 17 STOPS ) | Yes | Runs along the Sengkang LRT's West Loop, particularly through Sengkang E Ave. |
+| 384 (Punggol Temp Int ⟲ Blk 413C, 1 ROUTE ∙ 14 STOPS  ) | Yes | The route overlaps with the Punggol LRT, covering similar residential areas throughout |
+
+### 4.2 Discussion
+
+The overlap between these bus routes and the MRT/LRT lines indicates that some of the bus services may be redundant, particularly in areas where the MRT or LRT provides adequate coverage. 
+
+From a business perspective, removing redundant services or rerouting these bus lines could result in substantial financial savings by reducing fuel consumption, labor costs, and maintenance. These resources could then be redirected to underserved areas, improving efficiency and increasing customer satisfaction in regions with less reliable service.
+
+### 4.3 Recommendations
+
+- **Bus Route 374**: Strongly consider phasing out or shortening this route due to its overlap with the Sengkang LRT.
+- **Bus Route 973A**: Consider reducing the frequency of services or rerouting parts of the journey to areas less covered by Bukit Panjang LRT.
+- **Bus Route 991B**: Reroute or reduce frequency since it duplicates North-South MRT coverage in Choa Chu Kang. Efforts should be focused on connecting isolated neighborhoods not directly served by the MRT.
+- **Bus Route 163A**: Strongly consider removing as it largely parallels with Sengkang LRT.
+- **Bus Route 384**: Due to its redundancy with the Punggol LRT, this bus line should either be removed or revised to service areas not covered by the LRT.
+
+
+### Future Steps:
+1. **Passenger Data Analysis**: Without detailed ridership data, these recommendations are based on visual analysis of redundancy. Passenger load data would provide a clearer picture of where changes will have the most significant impact.
+2. **Community Feedback**: Gather insights from commuters regarding their travel patterns. Understanding commuter preferences will help optimize routes while maintaining satisfaction.
+
+With better data, we can increase service efficiency and direct resources where they are most needed, leading to overall improved public transportation service.
+
+
+
+### Screenshots of Visualization:
+
+- **Bus Route 384**:  
+  <img src="https://github.com/user-attachments/assets/029b2899-a65c-48b5-a72b-1fd2c03b0727" alt="Bus 384" width="500"/>
+
+- **Bus Route 374A**:  
+  <img src="https://github.com/user-attachments/assets/db21ef3f-90e3-4dcd-a97e-2f4175b71d5f" alt="Bus 374" width="500"/>
+
+- **Bus Route 163A**:  
+  <img src="https://github.com/user-attachments/assets/13a6cd52-7333-4044-b46a-34fccc2ad4ab" alt="Bus 163A" width="500"/>
+
+- **Bus Route 973A**:  
+  <img src="https://github.com/user-attachments/assets/c5997e22-5144-4d69-99f5-9410539c298e" alt="Bus 973A" width="500"/>
+
+- **Bus Route 991B**:  
+  <img src="https://github.com/user-attachments/assets/8cc335de-2227-4a8e-81ac-92c910b7eb6d" alt="Bus 991B" width="500"/>
+
+
