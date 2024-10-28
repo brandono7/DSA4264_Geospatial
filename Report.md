@@ -2,7 +2,6 @@
 
 ## 1. Context: Why are we doing this?
 
-
 In recent years, the Land Transport Authority (LTA) has introduced several new MRT lines, such as the Downtown Line and Thomson-East Coast Line, to improve public transportation efficiency. Historically, commuters relied heavily on bus services, which were slower and less predictable. Since the launch of the new MRT lines, ridership on these bus services has declined, as observed through small-scale surveys and anecdotal evidence. To optimize public transport options and encourage the use of MRT lines, we need to assess which bus routes overlap significantly with MRT services and may be suitable for rerouting or reduction.
 
 Since the opening of these MRT lines, ridership on parallel bus routes has shown a noticeable decline, as evidenced by small-scale surveys and anecdotal feedback. This shift highlights an opportunity to optimize our public transportation network by potentially reducing redundancy where bus services overlap significantly with MRT routes. 
@@ -17,15 +16,26 @@ By employing data science in this project, we aim to analyze route overlaps prec
 
 ## 2. Scope: What are we focusing on?
 
-
 The focus of this report is to identify bus routes that run parallel to existing MRT lines and assess which routes should be reviewed for potential service changes. The goal is to optimize route planning by reducing redundancy and improving cost-efficiency, while also responding to public demand for new bus services. Specifically, we utilize openly available data from the LTA website to perform analysis and calculations that identify the bus line with the greatest overlap with existing MRT lines. Visualizations will be used to further justify and illustrate our findings.
 
 ### 2.1 Problem 
+The expansion of new MRT lines in Singapore, including the Downtown Line and Thomson-East Coast Line, has decreased the ridership of parallel bus routes, as observed through small-scale surveys and anecdotal evidence. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued.
 
+### 2.2 Success Criteria: What would success look like and how we measure it
+Success in this project would involve identifying specific bus routes that overlap significantly with MRT lines and could be optimized for efficiency. This optimization may include complete removal or partial rerouting of these bus services. Achieving this would allow for a reallocation of resources to new bus routes that meet emerging public demand, ultimately enhancing the efficiency and responsiveness of Singapore's public transport system.
 
-### 2.2 Success Criteria: How we measure the success of our project 
+Success Measures:
+1. Identification of Redundant Routes: Successfully identifying at least 2-3 bus routes with significant overlap with MRT lines that can either be removed or rerouted.
+2. Cost Savings and Resource Reallocation: Quantifying the potential cost savings from reducing or rerouting these bus services and demonstrating how these savings could be redirected to fund new or underserved routes.
+3. Enhanced Commuter Satisfaction: Gauging public satisfaction by tracking feedback and usage patterns on the newly optimized routes, ensuring that changes align with commuter needs and improve their experience.
+4. Feasibility for Future Expansions: Establishing a replicable methodology that can be applied to future MRT lines, such as the Jurong Region Line, to continuously optimize bus services as the MRT network expands.
+
+This project’s success would be evident if these outcomes are achieved, leading to an improved public transportation framework, optimized resource allocation, and enhanced commuter experience​
 
 ### 2.3 Assumptions
+1. Ridership Trends Reflect Declining Usage of Overlapping Bus Services: Based on surveys conducted and anecdotal evidence, we assume that the ridership decline on certain bus routes is a direct result of the MRT expansion.
+2. Public Acceptance of Route Changes: We assume that the general public will be receptive to bus route changes, provided there are accessible and reliable MRT alternatives. 
+3. Consistency of Commuter Needs with Identified Overlap: We assume that areas with MRT and bus route overlap do not have additional unmet needs for bus services, and removing or reducing overlapping services will not adversely affect commuter convenience in these regions.
 
 ---
 
