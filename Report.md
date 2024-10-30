@@ -131,16 +131,16 @@ With better data, we can increase service efficiency and direct resources where 
 ### Screenshots of Visualization:
 
 - **Bus Route 384**:  
-  <img src="https://github.com/user-attachments/assets/029b2899-a65c-48b5-a72b-1fd2c03b0727" alt="Bus 384" width="500"/>
+  <img src="images/photo_2024-10-25_21-37-32.jpg" alt="Bus 384" width="500"/>
 
 - **Bus Route 163A**:  
-  <img src="https://github.com/user-attachments/assets/13a6cd52-7333-4044-b46a-34fccc2ad4ab" alt="Bus 163A" width="500"/>
+  <img src="images/photo_2024-10-25_21-37-28.jpg" alt="Bus 163A" width="500"/>
 
 - **Bus Route 374**:  
-  <img src="https://github.com/user-attachments/assets/db21ef3f-90e3-4dcd-a97e-2f4175b71d5f" alt="Bus 374" width="500"/>
+  <img src="images/photo_2024-10-25_21-37-30.jpg" alt="Bus 374" width="500"/>
 
 - **Bus Route 991B**:  
-  <img src="https://github.com/user-attachments/assets/8cc335de-2227-4a8e-81ac-92c910b7eb6d" alt="Bus 991B" width="500"/>
+  <img src="images/photo_2024-10-25_21-37-23.jpg" alt="Bus 991B" width="500"/>
 
 - **Bus Route 973A**:  
-  <img src="https://github.com/user-attachments/assets/c5997e22-5144-4d69-99f5-9410539c298e" alt="Bus 973A" width="500"/>
+  <img src="images/photo_2024-10-25_21-37-25.jpg" alt="Bus 973A" width="500"/>
