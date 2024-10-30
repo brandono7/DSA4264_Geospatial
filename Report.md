@@ -19,7 +19,7 @@ By employing data science in this project, we aim to analyze route overlaps prec
 The focus of this report is to identify bus routes that run parallel to existing MRT lines and assess which routes should be reviewed for potential service changes. The goal is to optimize route planning by reducing redundancy and improving cost-efficiency, while also responding to public demand for new bus services. Specifically, we utilize openly available data from the LTA website to perform analysis and calculations that identify the bus line with the greatest overlap with existing MRT lines. Visualizations will be used to further justify and illustrate our findings.
 
 ### 2.1 Problem 
-The expansion of new MRT lines in Singapore, including the Downtown Line and Thomson-East Coast Line, has decreased the ridership of parallel bus routes, as observed through small-scale surveys and anecdotal evidence. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued.
+The expansion of new MRT lines in Singapore, including the Downtown Line and Thomson-East Coast Line, has decreased the ridership of parallel bus routes, as observed through small-scale surveys and anecdotal evidence. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued. However, we are also wary, given the example of bus service [167](https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals) in 2023, which was retained by the LTA with a longer frequency after public objections. Despite running parallel with the newly opened TEL, it provided a vital direct connection (with no multiple transfers) from Northern Singapore to the city.
 
 ### 2.2 Success Criteria: What would success look like and how we measure it
 Success in this project would involve identifying specific bus routes that overlap significantly with MRT lines and could be optimized for efficiency. This optimization may include complete removal or partial rerouting of these bus services. Achieving this would allow for a reallocation of resources to new bus routes that meet emerging public demand, ultimately enhancing the efficiency and responsiveness of Singapore's public transport system.
@@ -30,7 +30,7 @@ Success Measures:
 3. Enhanced Commuter Satisfaction: Gauging public satisfaction by tracking feedback and usage patterns on the newly optimized routes, ensuring that changes align with commuter needs and improve their experience.
 4. Feasibility for Future Expansions: Establishing a replicable methodology that can be applied to future MRT lines, such as the Jurong Region Line, to continuously optimize bus services as the MRT network expands.
 
-This project’s success would be evident if these outcomes are achieved, leading to an improved public transportation framework, optimized resource allocation, and enhanced commuter experience​
+This project’s success would be evident if these outcomes are achieved, leading to an improved public transportation framework, optimized resource allocation, and enhanced commuter experience​.
 
 ### 2.3 Assumptions
 1. Ridership Trends Reflect Declining Usage of Overlapping Bus Services: Based on surveys conducted and anecdotal evidence, we assume that the ridership decline on certain bus routes is a direct result of the MRT expansion.
@@ -41,12 +41,12 @@ This project’s success would be evident if these outcomes are achieved, leadin
 
 ## 3. Methodology: How are we doing this?
 
-### 3.1. Collecting Data
-*Author: Brandon*
+### 3.1. Collecting Data [Data Preprocessing](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb)
+The data collection will involve using publicly available datasets from [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to analyze the bus routes that overlap with MRT lines. We will use the LTA Datamall API to extract information on bus service routes (all the bus stops for every bus service route), and passenger volume data (An aggregate number of tap-in and tap-out for each bus stop as well as an aggregate number of tap-in and tap-out data between any two bus stops) from these open datasets. 
 
-The data collection will involve using publicly available datasets to analyze the bus routes that overlap with MRT lines. We will extract information on route paths, timing, and ridership estimates from these open datasets, along with additional information on MRT coverage and the population density of affected areas.
+We also made use of the OneMap API to obtain geospatial data for bus stops and MRT stations. We gathered geo-coordinates for the bus stops and MRT stations by feeding postal code/street address into the OneMap API. Given the latitude and longitude of each bus stop and each MRT station, we were able to map the Euclidean distance to the nearest MRT station as well as the distance to the nearest MRT on every different MRT line (i.e. NS line, EW line, etc.).
 
-### 3.2. Algorithm Used
+### 3.2. Algorithm Used [Distance-based Algorithm](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Bus%20Algorithm.ipynb)
 Consider the simple example below to get a sense of how the algorithm works. We have a bus line (a bus line or bus route is defined as a given bus service with a direction) and a fictional DTL MRT line in this example. For each of the bus stops along this route, we calculate the euclidean distance to the nearest DTL MRT station. The distances we collect are [10m, 30m, 40m, 20m, 10m]. Therefore the median distance is 20m. The implication is that if a person is at one of the bus stops trying to board the bus, an alternative path for him is to take the DTL line and he is expected to walk an average of 20 meters to and from the MRT station. 
 
 <img src="images/example_bus_algorithm.png" alt="Bus Algorithm Concept" width="60%">
@@ -55,11 +55,11 @@ Ceteris Paribus, we can imagine that if the median distance is short, the bus se
 
 Median instead of mean is chosen to avoid the impact of outlier distances. We want to get the typical distance a commuter has to walk, and not the average distance he has to walk. 
 
-First, we did an ETL process in the **get_nearest_mrt_to_bus_stops.ipynb** file, using the geospatial data of the MRT stations from **data/mrt_stations_with_geo_data.csv** and the geospatial data of the bus stops from **data/Train Station Codes and Chinese Names.xls** to create **processed_data/bus_stops_with_nearest_mrt_data.csv**. In this new csv, we have the bus stop code as the primary key. For each row, we have the distance of the nearest MRT station for each MRT line and the names of these MRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Brash Basah MRT and the distance between them is 593 metres.
+First, we did an ETL process in the **get_nearest_mrt_to_bus_stops.ipynb** file, using the geospatial data of the MRT stations from **data/mrt_stations_with_geo_data.csv** and the geospatial data of the bus stops from **data/Train Station Codes and Chinese Names.xls** to create **processed_data/bus_stops_with_nearest_mrt_data.csv**. In this new csv, we have the bus stop code as the primary key. For each row, we have the distance of the nearest MRT station for each MRT line and the names of these MRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Bras Basah MRT and the distance between them is 593 metres.
 
 <img src="images/Example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="20%">
 
-After running that script, we run the **Bus Algorithm.ipynb** script. In this script, we read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It does the following algorithm:
+After running that script, we run the **Bus Algorithm.ipynb** script. In this script, we read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It does the following algorithm to obtain the nearest distance to each MRT line from every bus stop within a bus route service:
 
 ```
 hashmap_bus_line = {}
@@ -82,13 +82,14 @@ This algorithm will result in a hashmap (python dictionary) of hashmaps. The scr
 
 <img src="images/example_bus_line_score.png" alt="E.g. example busline scores csv" width="40%">
 
-For each bus line, we see the median distances to the different MRT lines. The 'nearest_mrt' column refers to the median distance to any MRT stations irregardless of mrt line.
+For each bus line, we see the median distances to the different MRT lines. The 'nearest_mrt' column refers to the median distance to any MRT stations regardless of mrt line and we use that as our most important metric in determining which bus routes should be made redundant. 
 
+There might be outliers that our distance-based algorithm (i.e. trunk routes that pass through the heartlands and connect to the city via expressways) will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop is redundant.
 
 ### 3.3. Technical Assumptions
-In calculating distance, we use euclidean distance to approximate walking distance. However, this approximation may not work in some cases. For example, if there is a large private compound or a canal separating the bus stop from the MRT station, the walking distance would be much larger than the euclidean distance as a person would have to walk around the compound or canal.
+In calculating distance, we use euclidean distance to approximate walking distance. However, this approximation may not work in some cases. For example, if there is a large private compound or a canal separating the bus stop from the MRT station, the walking distance would be much larger than the euclidean distance as a person would have to walk around the compound or canal. Nevertheless, euclidean distance is a good proxy.
 
-As we are trying to find bus routes that can be replaced by an MRT line, we assume the time taken to wait for the MRT train would be sufficiently less than the time taken to wait for the bus service. Unless there is an MRT breakdown, this assumption generally holds. As MRT breakdowns are rare because LTA is doing a good job, we can proceed with this assumption.
+As we are trying to find bus routes that can be replaced by an MRT line, we assume the time taken to wait for the MRT train would be sufficiently less than the time taken to wait for the bus service. Unless there is an MRT breakdown, this assumption generally holds. As MRT breakdowns are rare, with estimates showing that all MRT lines clocked at least 1 million train-km as at end-September 2024, we can proceed with this assumption.
 
 ---
 
@@ -96,15 +97,15 @@ As we are trying to find bus routes that can be replaced by an MRT line, we assu
 
 ### 4.1 Results
 
-After analyzing bus routes 163A and 384 along with the previously provided lines, we have summarized whether or not they run parallel to MRT/LRT lines and where redundancies may exist. Here's an updated summary table:
+After analyzing bus routes 163A and 384 along with the previously provided lines based on our distance-based algorithm, we have summarized in the table below whether these bus services have routes that run parallel to MRT/LRT lines and where redundancies may exist.
 
-| **Bus Line** | **Route Parallel to MRT/LRT** | **Details** |
-|--------------|-------------------------------|-------------|
-| 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS  ) | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. |
-| 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS  ) | Yes (Partial) | Closely follows the Bukit Panjang LRT Line, offering some coverage near Patir stations but still mostly require some waliking distance. |
-| 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS  ) | Yes (Partial) | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Heat Hong, but still mostly require some waliking distance. |
-| 163A (Sengkang Int → Bef Sengkang West Rd, 1 ROUTE ∙ 17 STOPS ) | Yes | Runs along the Sengkang LRT's West Loop, particularly through Sengkang E Ave. |
-| 384 (Punggol Temp Int ⟲ Blk 413C, 1 ROUTE ∙ 14 STOPS  ) | Yes | The route overlaps with the Punggol LRT, covering similar residential areas throughout |
+| **Bus Line** | **Route Parallel to MRT/LRT** | **Details** | **Median Distance to MRT/LRT line for each Bus Stop (m)** |
+|--------------|-------------------------------|-------------|-------------|
+| 384 (Punggol Temp Int ⟲ Blk 413C, 1 ROUTE ∙ 14 STOPS  ) | Yes | The route overlaps with the Punggol LRT, covering similar residential areas throughout | 190 |
+| 163A (Sengkang Int → Bef Sengkang West Rd, 1 ROUTE ∙ 17 STOPS ) | Yes | Runs along the Sengkang LRT's West Loop, particularly through Sengkang E Ave. | 193 |
+| 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS  ) | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. | 210 |
+| 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS  ) | Yes (Partial) | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Heat Hong, but still mostly require some walking distance. | 217 |
+| 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS  ) | Yes (Partial) | Closely follows the Bukit Panjang LRT Line, offering some coverage near Patir stations but still mostly require some walking distance. | 220 | 
 
 ### 4.2 Discussion
 
@@ -114,38 +115,32 @@ From a business perspective, removing redundant services or rerouting these bus 
 
 ### 4.3 Recommendations
 
-- **Bus Route 374**: Strongly consider phasing out or shortening this route due to its overlap with the Sengkang LRT.
-- **Bus Route 973A**: Consider reducing the frequency of services or rerouting parts of the journey to areas less covered by Bukit Panjang LRT.
-- **Bus Route 991B**: Reroute or reduce frequency since it duplicates North-South MRT coverage in Choa Chu Kang. Efforts should be focused on connecting isolated neighborhoods not directly served by the MRT.
-- **Bus Route 163A**: Strongly consider removing as it largely parallels with Sengkang LRT.
 - **Bus Route 384**: Due to its redundancy with the Punggol LRT, this bus line should either be removed or revised to service areas not covered by the LRT.
-
+- **Bus Route 163A**: Strongly consider removing as it largely parallels with Sengkang LRT.
+- **Bus Route 374**: Strongly consider phasing out or shortening this route due to its overlap with the Sengkang LRT.
+- **Bus Route 991B**: Reroute or reduce frequency since it duplicates North-South MRT coverage in Choa Chu Kang. Efforts should be focused on connecting isolated neighborhoods not directly served by the MRT.
+- **Bus Route 973A**: Consider reducing the frequency of services or rerouting parts of the journey to areas less covered by Bukit Panjang LRT.
 
 ### Future Steps:
-1. **Passenger Data Analysis**: In the absence of detailed ridership data, our recommendations rely on visual analysis to identify redundancy. Access to passenger load data would offer a clearer understanding of where adjustments to transport routes would have the most significant impact.
-   
-2. **Community Feedback**: Gathering insights from commuters about their travel patterns. Understanding commuter preferences will help optimize bus routes by reducing overlaps with MRT routes, thereby improving efficiency and maintaining commuter satisfaction.
+1. **Passenger Data Analysis**: In the absence of ridership data, these recommendations are based on visual analysis of redundancy. If passenger volume data was more granular and not aggregated, such that we have passenger load data on the number of tap-in and tap-out data for each bus service at every bus stop on the bus route, this would enable us to consider a passenger-volume weighted distance algorithm to provide a clearer picture of where changes will have the most significant impact, where a lower passenger volume on that bus service will penalise that bus service.
+
+2. **Community Feedback**: We hope to gather insights from commuters regarding their travel patterns. Understanding commuter preferences will help optimize routes while maintaining satisfaction.
 
 With better data, we can increase service efficiency and direct resources where they are most needed, leading to overall improved public transportation service.
-
-
 
 ### Screenshots of Visualization:
 
 - **Bus Route 384**:  
   <img src="https://github.com/user-attachments/assets/029b2899-a65c-48b5-a72b-1fd2c03b0727" alt="Bus 384" width="500"/>
 
-- **Bus Route 374A**:  
-  <img src="https://github.com/user-attachments/assets/db21ef3f-90e3-4dcd-a97e-2f4175b71d5f" alt="Bus 374" width="500"/>
-
 - **Bus Route 163A**:  
   <img src="https://github.com/user-attachments/assets/13a6cd52-7333-4044-b46a-34fccc2ad4ab" alt="Bus 163A" width="500"/>
 
-- **Bus Route 973A**:  
-  <img src="https://github.com/user-attachments/assets/c5997e22-5144-4d69-99f5-9410539c298e" alt="Bus 973A" width="500"/>
+- **Bus Route 374**:  
+  <img src="https://github.com/user-attachments/assets/db21ef3f-90e3-4dcd-a97e-2f4175b71d5f" alt="Bus 374" width="500"/>
 
 - **Bus Route 991B**:  
   <img src="https://github.com/user-attachments/assets/8cc335de-2227-4a8e-81ac-92c910b7eb6d" alt="Bus 991B" width="500"/>
 
-
-
+- **Bus Route 973A**:  
+  <img src="https://github.com/user-attachments/assets/c5997e22-5144-4d69-99f5-9410539c298e" alt="Bus 973A" width="500"/>
