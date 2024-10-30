@@ -122,8 +122,8 @@ From a business perspective, removing redundant services or rerouting these bus 
 
 
 ### Future Steps:
-1. **Passenger Data Analysis**: Without detailed ridership data, our recommendations are based on visual analysis of redundancy. Having access to passenger load data would provide a clearer picture of where amendments to transport routes will have the most significant impact.
-
+1. **Passenger Data Analysis**: In the absence of detailed ridership data, our recommendations rely on visual analysis to identify redundancy. Access to passenger load data would offer a clearer understanding of where adjustments to transport routes would have the most significant impact.
+   
 2. **Community Feedback**: Gathering insights from commuters about their travel patterns. Understanding commuter preferences will help optimize bus routes by reducing overlaps with MRT routes, thereby improving efficiency and maintaining commuter satisfaction.
 
 With better data, we can increase service efficiency and direct resources where they are most needed, leading to overall improved public transportation service.
