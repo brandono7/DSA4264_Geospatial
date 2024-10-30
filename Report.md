@@ -96,7 +96,7 @@ As we are trying to find bus routes that can be replaced by an MRT line, we assu
 
 ### 4.1 Results
 
-After analyzing bus routes 163A and 384 along with the previously provided lines, I have summarized whether they run parallel to MRT/LRT lines and where redundancies may exist. Here's an updated summary table:
+After analyzing bus routes 163A and 384 along with the previously provided lines, we have summarized whether or not they run parallel to MRT/LRT lines and where redundancies may exist. Here's an updated summary table:
 
 | **Bus Line** | **Route Parallel to MRT/LRT** | **Details** |
 |--------------|-------------------------------|-------------|
@@ -110,7 +110,7 @@ After analyzing bus routes 163A and 384 along with the previously provided lines
 
 The overlap between these bus routes and the MRT/LRT lines indicates that some of the bus services may be redundant, particularly in areas where the MRT or LRT provides adequate coverage. 
 
-From a business perspective, removing redundant services or rerouting these bus lines could result in substantial financial savings by reducing fuel consumption, labor costs, and maintenance. These resources could then be redirected to underserved areas, improving efficiency and increasing customer satisfaction in regions with less reliable service.
+From a business perspective, removing redundant services or rerouting these bus lines could result in substantial financial savings by reducing fuel consumption, labor costs, and maintenance. These resources could then be redirected to underserved areas, improving efficiency and increasing customer satisfaction in regions with reduced access to transport networks.
 
 ### 4.3 Recommendations
 
@@ -122,8 +122,9 @@ From a business perspective, removing redundant services or rerouting these bus 
 
 
 ### Future Steps:
-1. **Passenger Data Analysis**: Without detailed ridership data, these recommendations are based on visual analysis of redundancy. Passenger load data would provide a clearer picture of where changes will have the most significant impact.
-2. **Community Feedback**: Gather insights from commuters regarding their travel patterns. Understanding commuter preferences will help optimize routes while maintaining satisfaction.
+1. **Passenger Data Analysis**: Without detailed ridership data, our recommendations are based on visual analysis of redundancy. Having access to passenger load data would provide a clearer picture of where amendments to transport routes will have the most significant impact.
+
+2. **Community Feedback**: Gathering insights from commuters about their travel patterns. Understanding commuter preferences will help optimize bus routes by reducing overlaps with MRT routes, thereby improving efficiency and maintaining commuter satisfaction.
 
 With better data, we can increase service efficiency and direct resources where they are most needed, leading to overall improved public transportation service.
 
