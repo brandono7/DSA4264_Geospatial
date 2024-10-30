@@ -41,12 +41,12 @@ This project’s success would be evident if these outcomes are achieved, leadin
 
 ## 3. Methodology: How are we doing this?
 
-### 3.1. Collecting Data [Data Preprocessing](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb)
+### 3.1. Collecting Data ([Data Preprocessing](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb))
 The data collection will involve using publicly available datasets from [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to analyze the bus routes that overlap with MRT lines. We will use the LTA Datamall API to extract information on bus service routes (all the bus stops for every bus service route), and passenger volume data (An aggregate number of tap-in and tap-out for each bus stop as well as an aggregate number of tap-in and tap-out data between any two bus stops) from these open datasets. 
 
-We also made use of the OneMap API to obtain geospatial data for bus stops and MRT stations. We gathered geo-coordinates for the bus stops and MRT stations by feeding postal code/street address into the OneMap API. Given the latitude and longitude of each bus stop and each MRT station, we were able to map the Euclidean distance to the nearest MRT station as well as the distance to the nearest MRT on every different MRT line (i.e. NS line, EW line, etc.).
+We also made use of the [OneMap API](https://www.onemap.gov.sg/apidocs/) to obtain geospatial data for bus stops and MRT stations. We gathered geo-coordinates for the bus stops and MRT stations by feeding postal code/street address into the OneMap API. Given the latitude and longitude of each bus stop and each MRT station, we were able to map the Euclidean distance to the nearest MRT station as well as the distance to the nearest MRT on every different MRT line (i.e. NS line, EW line, etc.).
 
-### 3.2. Algorithm Used [Distance-based Algorithm](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Bus%20Algorithm.ipynb)
+### 3.2. Algorithm Used ([Distance-based Algorithm](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Bus%20Algorithm.ipynb))
 Consider the simple example below to get a sense of how the algorithm works. We have a bus line (a bus line or bus route is defined as a given bus service with a direction) and a fictional DTL MRT line in this example. For each of the bus stops along this route, we calculate the euclidean distance to the nearest DTL MRT station. The distances we collect are [10m, 30m, 40m, 20m, 10m]. Therefore the median distance is 20m. The implication is that if a person is at one of the bus stops trying to board the bus, an alternative path for him is to take the DTL line and he is expected to walk an average of 20 meters to and from the MRT station. 
 
 <img src="images/example_bus_algorithm.png" alt="Bus Algorithm Concept" width="60%">
