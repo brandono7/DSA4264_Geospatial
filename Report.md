@@ -1,8 +1,7 @@
 # Technical Report
 
 ## 1. Context: Why are we doing this?
-
-In recent years, the Land Transport Authority (LTA) has introduced several new MRT lines, such as the Downtown Line and Thomson-East Coast Line, to improve public transportation efficiency. Historically, commuters relied heavily on bus services, which were slower and less predictable. Since the launch of the new MRT lines, ridership on these bus services has declined, as observed through small-scale surveys and anecdotal evidence. To optimize public transport options and encourage the use of MRT lines, we need to assess which bus routes overlap significantly with MRT services and may be suitable for rerouting or reduction.
+This project originated from ongoing efforts by the Ministry of Transport’s Land Division and the Public Transportation team, responsible for strategic planning in public transit optimization. In recent years, the Land Transport Authority (LTA) has introduced several new MRT lines, such as the Downtown Line and Thomson-East Coast Line, to improve public transportation efficiency. Historically, commuters relied heavily on bus services, which were slower and less predictable. Since the launch of the new MRT lines, ridership on these bus services has declined, as observed through small-scale surveys and anecdotal evidence. To optimize public transport options and encourage the use of MRT lines, we need to assess which bus routes overlap significantly with MRT services and may be suitable for rerouting or reduction.
 
 Since the opening of these MRT lines, ridership on parallel bus routes has shown a noticeable decline, as evidenced by small-scale surveys and anecdotal feedback. This shift highlights an opportunity to optimize our public transportation network by potentially reducing redundancy where bus services overlap significantly with MRT routes. 
 
@@ -15,13 +14,16 @@ By employing data science in this project, we aim to analyze route overlaps prec
 ---
 
 ## 2. Scope: What are we focusing on?
+The focus of this report is to identify bus routes that run parallel to existing MRT lines and assess which routes should be reviewed for potential service changes. The goal is to optimize route planning by reducing redundancy and improving cost-efficiency, while also responding to public demand for new bus services. Specifically, we utilize openly available data from the LTA website to perform analysis and calculations that identify the bus line with the greatest overlap with existing MRT lines. Visualizations will be used to further justify and illustrate our findings.
+
+#### 2.1 Problem 
+The Public Transportation team faces a significant challenge due to the expansion of MRT lines in Singapore. This has decreased the ridership of parallel bus routes, as observed through small-scale surveys and anecdotal evidence. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued. However, we are also wary, given the example of bus service [167](https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals) in 2023, which was retained by the LTA with a longer frequency after public objections. Despite running parallel with the newly opened TEL, it provided a vital direct connection (with no multiple transfers) from Northern Singapore to the city.
+
+Data science and machine learning provide a precise and scalable solution to this problem. By leveraging these methods, we can analyze route overlap, identify redundancy patterns, and evaluate alternative routes. This approach will enable a data-driven decision on route optimization, reducing the need for manual assessment and allowing for efficient resource allocation across Singapore’s public transit network.
 
 The focus of this report is to identify bus routes that run parallel to existing MRT lines and assess which routes should be reviewed for potential service changes. The goal is to optimize route planning by reducing redundancy and improving cost-efficiency, while also catering for public demand for new bus services. Specifically, we utilize openly available data from the LTA website to perform analysis and calculations that identify the bus line with the greatest overlap with existing MRT lines. Visualizations will be used to further justify and illustrate our findings.
 
-### 2.1 Problem 
-The expansion of new MRT lines in Singapore, including the Downtown Line and Thomson-East Coast Line, has decreased the ridership of parallel bus routes, as observed through small-scale surveys and anecdotal evidence. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued. However, we are also wary, given the example of bus service [167](https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals) in 2023, which was retained by the LTA with a longer frequency after public objections. Despite running parallel with the newly opened TEL, it provided a vital direct connection (with no multiple transfers) from Northern Singapore to the city.
-
-### 2.2 Success Criteria: What would success look like and how we measure it
+#### 2.2 Success Criteria: What would success look like and how we measure it
 Success in this project would involve identifying specific bus routes that overlap significantly with MRT lines and could be optimized for efficiency. This optimization may include complete removal or partial rerouting of these bus services. Achieving this would allow for a reallocation of resources to new bus routes that meet emerging public demand, ultimately enhancing the efficiency and responsiveness of Singapore's public transport system.
 
 Success Measures:
@@ -31,10 +33,12 @@ Success Measures:
 
 This project’s success would be evident if these outcomes are achieved, leading to an improved public transportation framework, optimized resource allocation, and enhanced commuter experience​.
 
-### 2.3 Assumptions
+#### 2.3 Assumptions
 1. Definition of Parallelism: **For each bus service on each route, we measure the parallelism by using the median distance to MRT/LRT stations for all the bus stops within the bus route as a proxy.** 
 2. Ridership Trends Reflect Declining Usage of Overlapping Bus Services: Based on surveys conducted and anecdotal evidence, we assume that the ridership decline on certain bus routes that run parallel to MRT stations is a direct result of the MRT expansion. 
 3. Consistency of Commuter Needs with Identified Overlap: We assume that areas with MRT and bus route overlap do not have additional unmet needs for bus services, and removing or reducing overlapping services will not adversely affect commuter convenience in these regions.
+4. Data Limitations and Public Dataset Reliability: Due to IT issues, the analysis will rely solely on publicly available datasets, as internal bus and MRT ridership data are not accessible. We assume that these public datasets will provide a representative picture of ridership patterns, although we acknowledge limitations in data granularity and completeness​
+5. Hypothesis of Overlap and Service Redundancy: We hypothesize that routes showing significant spatial overlap with MRT lines contribute to inefficiencies in the transport network and that reducing or rerouting these services will improve operational efficiency and funding allocation.
 
 ---
 
