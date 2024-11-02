@@ -42,8 +42,12 @@ This project’s success would be evident if these outcomes are achieved, leadin
 
 ## 3. Methodology: How are we doing this?
 
-### 3.1. Technical Assumptions (To be changed)
+### 3.1. Technical Assumptions
 In calculating distance from bus stop to nearest MRT/LRT station, we use euclidean distance to approximate walking distance. However, this approximation may not work in some cases. For example, if there is a large private compound or a canal separating the bus stop from the MRT station, the walking distance would be much larger than the euclidean distance as a person would have to walk around the compound or canal. Nevertheless, euclidean distance is a good proxy.
+
+We also thought of the possibility of using manhattan distance as an approximate walking distance as it more accurately maps distances across pavements (pavements are typically parallel or 90 degrees to each other). However, it does not account for the reality of walking diagonally through buildings/parks/etc. Thus, we did not use manhattan distance. 
+
+We also thought of the possibility of using [discrete feachet distance](https://medium.com/tblx-insider/how-long-should-your-dog-leash-be-ba5a4e6891fc) between a bus line and a MRT line. Feachet distance is a metric for the similarity between 2 routes. However, as the solution is unintuitive and difficult to explain to stakeholders, it is less preferred. Furthermore, considering that euclidean distance is not only intuitive, but also a sufficiently effective tool, we have opted to use euclidean distance instead.
 
 As we are trying to find bus routes that can be replaced by an MRT/LRT line, we assume the time taken to wait for the MRT train would be sufficiently less than the time taken to wait for the bus service. Unless there is an MRT breakdown, this assumption generally holds. As MRT breakdowns are rare, with estimates showing that all MRT lines clocked at least 1 million train-km as at end-September 2024, we can proceed with this assumption.
 
@@ -92,7 +96,7 @@ This algorithm will result in a hashmap (python dictionary) of hashmaps. The scr
 
 For each bus line, we see the median distances to the different MRT lines. The 'nearest_mrt' column refers to the median distance to any MRT stations regardless of mrt line and we use that as our most important metric in determining which bus routes should be made redundant. 
 
-There might be outliers that our distance-based algorithm (i.e. trunk routes that pass through the heartlands and connect to the city via expressways) will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop is redundant.
+There might be outliers that our distance-based algorithm (i.e. trunk routes that pass through the heartlands and connect to the city via expressways) will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop is redundant. This further analysis will also help us to check for the aforementioned possible issue that we might encounter in using euclidean distance metric.
 
 ---
 
