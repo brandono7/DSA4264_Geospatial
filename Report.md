@@ -2,7 +2,7 @@
 
 **Project: Removing Redundant Bus Services**  
 **Members: Brandon Ong Cae Jun, Joshua Koh Ze Shao,Kwek Wan Ting, Wong Li Xuan, Xue Beichen**  
-Last updated on: `git log -1 --format=%cd`
+Last updated on: 
 
 ## 1. Context: Why are we doing this?
 This project originated from ongoing efforts by the Ministry of Transport’s Land Division and the Public Transportation team, responsible for strategic planning in public transit optimization. In recent years, the Land Transport Authority (LTA) has introduced several new MRT/LRT lines, such as the Downtown Line and Thomson-East Coast Line, to improve public transportation efficiency. Historically, commuters relied heavily on bus services, which were slower and less predictable. Since the launch of the new MRT/LRT lines, ridership on these bus services has declined, as observed through small-scale surveys and anecdotal evidence. To optimize public transport options and encourage the use of MRT/LRT lines, we need to assess which bus routes overlap significantly with MRT/LRT services and may be suitable for rerouting or reduction. 
