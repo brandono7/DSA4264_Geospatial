@@ -1,8 +1,9 @@
 # Find_Redundant_Bus_Services
 
 ### Introduction
-This project deals with geospatial bus and MRT data taken from Datamall. In 2023, bus service 167 was deemed to be running parallel to the TEL MRT line, a sign of inefficiency. See:
-https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals
+This project deals with geospatial bus and MRT data taken from LTA Datamall. 
+
+In 2023, bus service 167 was deemed to be running parallel to the TEL MRT line, a sign of inefficiency and subsequently the frequency of 167 was reduced. See: https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals. 
 
 What other bus services have a similar issue? That is our task to **identify redundant bus routes and recommend removal or rerouting of bus routes**. A summary of the project scope is given to us by our lecturer, and can be found in the repository.
 
