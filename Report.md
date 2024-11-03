@@ -2,7 +2,7 @@
 
 **Project: Removing Redundant Bus Services**  
 **Members: Brandon Ong Cae Jun, Joshua Koh Ze Shao,Kwek Wan Ting, Wong Li Xuan, Xue Beichen**  
-Last updated on: 4 November 2024
+Last updated on: 3 Nov 2024
 
 ## 1. Context: Why are we doing this?
 This project originated from ongoing efforts by the Ministry of Transport’s Land Division and the Public Transportation team, responsible for strategic planning in public transit optimization. In recent years, the Land Transport Authority (LTA) has introduced several new MRT/LRT lines, such as the Downtown Line and Thomson-East Coast Line, to improve public transportation efficiency. Historically, commuters relied heavily on bus services, which were slower and less predictable. Since the launch of the new MRT/LRT lines, ridership on these bus services has declined, as observed through small-scale surveys and anecdotal evidence. To optimize public transport options and encourage the use of MRT/LRT lines, we need to assess which bus routes overlap significantly with MRT/LRT services and may be suitable for rerouting or reduction. 
@@ -54,9 +54,9 @@ We also thought of the possibility of using [discrete feachet distance](https://
 As we are trying to find bus routes that can be replaced by an MRT line, we assume the time taken to wait for the trains would be sufficiently less than the time taken to wait for the bus service. Unless there is a train breakdown, this assumption generally holds. As MRT breakdowns are rare, with estimates showing that all MRT lines clocked at least 1 million train-km as at end-September 2024, we can proceed with this assumption.
 
 ### 3.2. Collecting Data ([Data Preprocessing](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb))
-The data collection will involve using publicly available datasets from [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to analyze the bus routes that overlap with MRT/LRT lines. We will use the LTA Datamall API to extract information on bus service routes (all the bus stops for every bus service route), and passenger volume data (An aggregate number of tap-in and tap-out for each bus stop as well as an aggregate number of tap-in and tap-out data between any two bus stops) from these open datasets. The data that we obtained from LTA DataMall was generally quite clean and we did not have to perform heavy data cleaning.
+The data collection will involve using publicly available datasets from [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to analyze the bus routes that overlap with MRT/LRT lines. We will use the LTA Datamall API to extract information on bus service routes (all the bus stops for every bus service route), and passenger volume data (An aggregate number of tap-in and tap-out for each bus stop as well as an aggregate number of tap-in and tap-out data between any two bus stops) from these open datasets. We also extracted passenger volume data for MRT stations (An aggregate number of tap-in and tap-out for each MRT station as well as an aggregate number of tap-in and tap-out data between any two MRT stations). The data that we obtained from LTA DataMall was clean and we did not have to perform heavy data cleaning.
 
-We also made use of the [OneMap API](https://www.onemap.gov.sg/apidocs/) to obtain geospatial data for bus stops and MRT/LRT stations. We gathered geo-coordinates for the bus stops and MRT/LRT stations by feeding postal code/street address into the OneMap API. Given the latitude and longitude of each bus stop and each MRT/LRT station, we were able to map the Euclidean distance to the nearest MRT/LRT station as well as the distance to the nearest MRT/LRT on every different MRT/LRT line (i.e. NS line, EW line, etc.).
+We also made use of the [OneMap API](https://www.onemap.gov.sg/apidocs/) to obtain geospatial data for MRT/LRT stations. We gathered the station codes of the MRT/LRT stations from [data.gov.sg](https://data.gov.sg/datasets/d_d312a5b127e1ae74299b8ae664cedd4e/view). We then obtained the geo-coordinates for the MRT/LRT stations by feeding in the station codes into the OneMap API. Given the latitude and longitude of each bus stop (provided in the LTA DataMall API extraction) and each MRT/LRT station, we were able to map the Euclidean distance to the nearest MRT/LRT station as well as the distance to the nearest MRT/LRT on every MRT/LRT line (i.e. NS line, EW line, etc.).
 
 We did an ETL process in the **get_nearest_mrt_to_bus_stops.ipynb** file, using the geospatial data of the MRT/LRT stations from **data/mrt_stations_with_geo_data.csv** and the geospatial data of the bus stops from **data/Train Station Codes and Chinese Names.xls** to create **processed_data/bus_stops_with_nearest_mrt_data.csv**. In this new csv, we have the bus stop code as the primary key after merging the bus specfic datasets from LTA DataMall.
 
@@ -73,7 +73,7 @@ There were several evaluation metrics that we considered regarding the distance 
 
 In the **processed_data/bus_stops_with_nearest_mrt_data.csv** file, for each row, we have the distance of the nearest MRT/LRT station for each MRT/LRT line and the names of these MRT/LRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Bras Basah MRT and the distance between them is 593 metres.
 
-After the processing of our data, we run the **Bus Algorithm.ipynb** script. In this script, we read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It performs the following algorithm to obtain the nearest distance to each MRT/LRT line from every bus stop within a bus route service:
+After the processing of our data, we run the **Bus Algorithm.ipynb** script. In this script, we read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It performs the following algorithm to obtain the nearest median distance to each MRT/LRT line from every bus stop within a bus route service:
 
 ```
 hashmap_bus_line = {}
@@ -96,7 +96,7 @@ This algorithm will result in a hashmap (python dictionary) of hashmaps. The scr
 
 <img src="images/example_bus_line_score.png" alt="E.g. example busline scores csv" width="100%">
 
-For each bus route, we see the median distances to the different MRT/LRT lines. The 'nearest_mrt' column refers to the median distance to any MRT stations regardless of MRT/LRT line and we use that as our most important metric in determining which bus routes should be made redundant. We did not make use of the other median distances to different train lines as this was not as precise in determining parallelism.
+For each bus route, we see the median distances to the different MRT/LRT lines. The 'nearest_mrt_lrt' column refers to the median distance to any MRT/LRT stations regardless of MRT/LRT line and we use that as our most important metric in determining which bus routes should be made redundant. We did not make use of the other median distances to different train lines as this was not as precise in determining parallelism.
 
 There might be outliers that our distance-based algorithm (i.e. trunk routes) will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop is redundant. This further analysis will also help us to check for the aforementioned possible issue that we might encounter in using euclidean distance metric.
 
