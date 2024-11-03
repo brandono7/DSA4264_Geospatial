@@ -1,5 +1,9 @@
 # Find_Redundant_Bus_Services
 
+<p align="center">
+<img src = 'images/bus_stock_pic.jpg'>
+</p>
+
 ### Introduction
 This project deals with geospatial bus and MRT data taken from LTA Datamall. 
 
@@ -16,7 +20,7 @@ We have 3 python scripts in our GitHub repository that we will use to identify r
 
 In this python script, we made API calls to [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to extract geospatial data on buses as well as passenger volume data for bus stops and for MRT/LRT stations. Note: For the API call to work, an account will need to be created and an API Key will be sent to your registered email.
 
-To extract geospatial data on MRT/LRT stations, we gathered MRT/LRT station codes from [data.gov.sg](https://data.gov.sg/datasets/d_d312a5b127e1ae74299b8ae664cedd4e/view). This was then used as an input into the [OneMap API](https://www.onemap.gov.sg/apidocs/) to extract geospatial data on MRT/LRT stations.
+To extract geospatial data on MRT/LRT stations, we gathered MRT/LRT station codes from [data.gov.sg](https://data.gov.sg/datasets/d_d312a5b127e1ae74299b8ae664cedd4e/view). This was then used as an input into the [OneMap API](https://www.onemap.gov.sg/apidocs/) to extract geospatial data on MRT/LRT stations. For this extraction, no API key is needed to be created from OneMap API.
 
 2) [get_nearest_mrt_to_bus_stops.ipynb](https://github.com/brandono7/DSA4264_Geospatial/blob/main/get_nearest_mrt_to_bus_stops.ipynb)
 
