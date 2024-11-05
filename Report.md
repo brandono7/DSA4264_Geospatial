@@ -43,7 +43,7 @@ This project’s success would be evident if these outcomes are achieved, leadin
 ### 3.1. Technical Assumptions
 In calculating distance from bus stop to nearest MRT station, we use Euclidean distance to approximate walking distance. However, this approximation may not work in some cases. For example, if there is a large private compound or a canal separating the bus stop from the MRT station, the walking distance would be much larger than the Euclidean distance as a person would have to walk around the compound or canal. Nevertheless, Euclidean distance is a good proxy.
 
-We also thought of the possibility of using manhattan distance as an approximate walking distance as it more accurately maps distances across pavements (pavements are typically parallel or 90 degrees to each other). However, it does not account for the reality of walking diagonally through buildings/parks/etc. Thus, we did not use Manhattan distance. 
+We also thought of the possibility of using Manhattan distance as an approximate walking distance as it more accurately maps distances across pavements (pavements are typically parallel or 90 degrees to each other). However, it does not account for the reality of walking diagonally through buildings/parks/etc. Thus, we did not use Manhattan distance. 
 
 We also thought of the possibility of using [Discrete Feachet distance](https://medium.com/tblx-insider/how-long-should-your-dog-leash-be-ba5a4e6891fc) between a bus route and a MRT line. Feachet distance is a metric for the similarity between 2 routes. However, as the solution is unintuitive and difficult to explain to stakeholders, it is less preferred. Furthermore, considering that Euclidean distance is not only intuitive, but also a sufficiently effective tool, we have opted to use Euclidean distance instead.
 
@@ -63,7 +63,7 @@ Below is a summary table of the datasets that were obtained from LTA DataMall:
 | bus_routes  | csv |  Contains detailed route information for all services currently in operation, including: all bus stops along each route, first/last bus timings for each stop. |
 | bus_stops  | csv | Contains detailed information for all bus stops currently being serviced by buses, including: Bus Stop Code, location coordinates.  |
 | bus_services  | csv | Contains detailed service information for all buses currently in operation, including: type of service (trunk, feeder, etc.), first stop, last stop, peak / offpeak frequency of dispatch. |
-| Train Station Codes and Chinese Names  | xls | Contains MRT/LRT Station Codes for all stations. |
+| Train Station Codes and Chinese Names  | xls | Contains MRT/LRT Station Codes for all stations to be used as inputs to obtain geospatial data from OneMap API. |
 | transport_node_bus_202408  | csv | Contains hourly passenger volumes (tap-in/tap-out) per bus stop for weekdays and weekends in August along with day type and time period.  |
 | transport_node_train_202408 | csv | Contains hourly passenger volumes (tap-in/tap-out) per train station for weekdays and weekends in August along with day type and time period.  |
 | origin_destination_bus_202408 | csv | Contains number of trips by weekdays and weekends from origin to destination bus stops in August. |
@@ -84,7 +84,7 @@ If the median distance is short, ceteris paribus, the bus service is redundant a
 
 There were several evaluation metrics that we considered regarding the distance to MRT lines: median, mean, and sum. Median was chosen instead of mean to mitigate the impact of outlier distances skewing the mean. We want to get the typical distance a commuter has to walk from bus stop to MRT lines, and not the average distance. 
 
-<img src="images/example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="40%">
+<img src="images/Example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="40%">
 
 In the **processed_data/bus_stops_with_nearest_mrt_data.csv** file, for each row, we have the distance of the nearest MRT station for each MRT line and the names of these MRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Bras Basah MRT and the distance between them is 593 metres.
 
@@ -113,7 +113,7 @@ This algorithm will result in a hashmap (python dictionary) of hashmaps. Additio
 
 For each bus route, we see the median distances to the different MRT lines. The 'nearest_mrt_lrt' column refers to the **median distance to any MRT stations regardless of MRT line** and we use that as our most important metric in determining which bus routes should be made redundant. We did not make use of the other median distances to different train lines as this was not as precise in determining parallelism.
 
-There might be outliers that our distance-based algorithm will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop is redundant. This further analysis will also help us to check for the aforementioned possible issue that we might encounter in using Euclidean distance metric.
+We also made the decision not to include passenger volume data as weights within our distance based algorithm as the data provided was imprecise. For example, there was no data on the tap in and tap outs for each bus service and how many people boarded or alighted this specific bus service at any given bus stop within the bus route. Because of this, we are aware that there might be outliers that our distance-based algorithm will not pick up and hence we conduct a further analysis visually to confirm that the bus routes with the one of the shortest median distances from each bus stop are redundant. This further analysis which will be discussed in detail in Section 4 will also help us to check for the aforementioned possible issue that we might encounter in using Euclidean distance metric.
 
 ---
 
@@ -158,7 +158,7 @@ From a business perspective, removing redundant services or rerouting these bus 
   Even though our distance algorithm produces a small value for the median distance, we recognise this was an edge case. We considered the operating hours of both Bukit Panjang LRT line, and Bus Service 991B. Bus Service 991B is a trunk service that operates daily from 0017 to 0055 on weekdays and 0018 to 0055 on weekends while the Bukit Panjang LRT from Choa Chu Kang LRT to Petir LRT has last trains at 2337. Since our distance algorithm does not take into account operating hours, this is an edge case as this bus route is important in servicing commuters in the late night. Therefore, Therefore, **we do not recommend removing this bus service**.
   
 - **Bus Service 973A**:  
-<img src="bus973A.jpg" alt="Bus 973A" width="500"/>
+<img src="images/bus973A.jpg" alt="Bus 973A" width="500"/>
   
   Even though our distance algorithm produces a small value for the median distance, we recognise this was an edge case. We considered the operating hours of both Bukit Panjang LRT line, and Bus Service 973A. Bus Service 973A is a trunk service that operates daily from 0030 to 0110 daily while the Bukit Panjang LRT towards Choa Chu Kang LRT has last trains at 2330. Since our distance algorithm does not take into account operating hours, this is an edge case as this bus route is important in servicing commuters in the late night. Therefore, **we do not recommend removing this bus service**.
 
