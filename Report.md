@@ -146,6 +146,17 @@ From a business perspective, removing redundant services or rerouting these bus 
 
 In our project, the distance algorithm served to be a good proxy for shortlisting bus routes that can be removed and **we identified Bus Service 384 and Bus Service 374 to be removed**. We were aware of the potential edge cases that this might have produced and hence we delved deeper visually through map visualisation and considerations of operating hours, which served as the reason why **we did not recommend trunk services like Bus Service 163A, 991B and 973A to be removed**.
 
+- **Bus Service 976**:
+
+<img src="images/IMG_5988" alt="Bus 976" width="500"/>
+<img src="images/IMG_5989" alt="Bus 976" width="500"/>
+
+Largely overlaping  along choa chu kang wy and Bukit Panjang Ring Rd
+
+- **Bus Service 114A**:
+<img src="images/IMG_5987" alt="Bus 976" width="500"/>
+Parallel to ...LRT but from a distance
+
 ### Future Steps:
 1. **Passenger Data Analysis**: In the absence of ridership data, these recommendations are based on visual analysis of redundancy. If passenger volume data was more granular and not aggregated, such that we have passenger load data on the number of tap-in and tap-out data for each bus service at every bus stop on the bus route, this would enable us to consider a passenger-volume weighted distance algorithm to provide a clearer picture of where changes will have the most significant impact, where a lower passenger volume on that bus service will penalise that bus service.
 
