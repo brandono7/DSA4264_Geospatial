@@ -49,10 +49,29 @@ We also thought of the possibility of using [Discrete Feachet distance](https://
 
 As we are trying to find bus routes that can be replaced by an MRT line, we assume the time taken to wait for the trains would be sufficiently less than the time taken to wait for the bus service. Unless there is a train breakdown, this assumption generally holds. As MRT breakdowns are rare, with estimates showing that all MRT lines clocked at least 1 million train-km as at end-September 2024, we can proceed with this assumption.
 
-### 3.2. Collecting Data ([Data Preprocessing](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb) and [Obtaining Geospatial Data](https://github.com/brandono7/DSA4264_Geospatial/blob/main/get_nearest_mrt_to_bus_stops.ipynb))
+### 3.2. Collecting Data 
+
+#### 3.2.1 [Data Collection](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Data%20Prepocessing.ipynb)
+
 The data collection will involve using publicly available datasets from [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html) to analyze the bus routes that overlap with MRT lines. We will use the LTA Datamall API to extract information on bus service routes (all the bus stops for every bus service route), and passenger volume data (An aggregate number of tap-in and tap-out for each bus stop as well as an aggregate number of tap-in and tap-out data between any two bus stops) from these open datasets. We also extracted passenger volume data for MRT stations (An aggregate number of tap-in and tap-out for each MRT station as well as an aggregate number of tap-in and tap-out data between any two MRT stations). The data that we obtained from LTA DataMall was clean and we did not have to perform heavy data cleaning.
 
-We also made use of the [OneMap API](https://www.onemap.gov.sg/apidocs/) to obtain geospatial data for MRT stations. We downloaded MRT/LRT station codes from static datasets on [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html). We then obtained the geo-coordinates for the MRT stations by feeding in the station codes into the OneMap API. Given the latitude and longitude of each bus stop (provided in the LTA DataMall API extraction) and each MRT station, we were able to map the Euclidean distance to the nearest MRT station as well as the distance to the nearest MRT on every MRT line (i.e. NS line, EW line, etc.).
+We also made use of the [OneMap API](https://www.onemap.gov.sg/apidocs/) to obtain geospatial data for MRT stations. We downloaded MRT/LRT station codes from static datasets on [LTA DataMall](https://datamall.lta.gov.sg/content/datamall/en/dynamic-data.html). We then obtained the geo-coordinates for the MRT stations by feeding in the station codes into the OneMap API. 
+
+Below is a summary table of the datasets that were obtained from LTA DataMall:
+| Dataset    | File Type         | Description of Dataset |
+|:------------:|:------------:|:------------:|
+| bus_routes  | csv |  Contains detailed route information for all services currently in operation, including: all bus stops along each route, first/last bus timings for each stop. |
+| bus_stops  | csv | Contains detailed information for all bus stops currently being serviced by buses, including: Bus Stop Code, location coordinates.  |
+| bus_services  | csv | Contains detailed service information for all buses currently in operation, including: type of service (trunk, feeder, etc.), first stop, last stop, peak / offpeak frequency of dispatch. |
+| Train Station Codes and Chinese Names  | xls | Contains MRT/LRT Station Codes for all stations. |
+| transport_node_bus_202408  | csv | Contains hourly passenger volumes (tap-in/tap-out) per bus stop for weekdays and weekends in August along with day type and time period.  |
+| transport_node_train_202408 | csv | Contains hourly passenger volumes (tap-in/tap-out) per train station for weekdays and weekends in August along with day type and time period.  |
+| origin_destination_bus_202408 | csv | Contains number of trips by weekdays and weekends from origin to destination bus stops in August. |
+| origin_destination_train_202408 | csv | Contains number of trips by weekdays and weekends from origin to destination bus stops in August.  |
+
+#### 3.2.2 [Obtaining Geospatial Data](https://github.com/brandono7/DSA4264_Geospatial/blob/main/get_nearest_mrt_to_bus_stops.ipynb)
+
+Given the latitude and longitude of each bus stop and each MRT station, we were able to map the Euclidean distance to the nearest MRT station as well as the distance to the nearest MRT on every MRT line (i.e. NS line, EW line, etc.).
 
 We did an ETL process in the **get_nearest_mrt_to_bus_stops.ipynb** file, using the geospatial data of the MRT stations from **data/mrt_stations_with_geo_data.csv** and the geospatial data of the bus stops from **data/Train Station Codes and Chinese Names.xls** to create **processed_data/bus_stops_with_nearest_mrt_data.csv**. In this new csv, we have the bus stop code as the primary key after merging the bus specific datasets from LTA DataMall.
 
@@ -65,7 +84,7 @@ If the median distance is short, ceteris paribus, the bus service is redundant a
 
 There were several evaluation metrics that we considered regarding the distance to MRT lines: median, mean, and sum. Median was chosen instead of mean to mitigate the impact of outlier distances skewing the mean. We want to get the typical distance a commuter has to walk from bus stop to MRT lines, and not the average distance. 
 
-<img src="images/Example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="40%">
+<img src="images/example_bus_stops_with_nearest_mrt_data.png" alt="E.g. Row of output data" width="40%">
 
 In the **processed_data/bus_stops_with_nearest_mrt_data.csv** file, for each row, we have the distance of the nearest MRT station for each MRT line and the names of these MRT stations. E.g. We have 1 row of the output data here. The nearest CCL MRT station to the bus stop is Bras Basah MRT and the distance between them is 593 metres.
 
@@ -88,7 +107,7 @@ For each bus_line:
     hashmap_bus_line[bus_line] = hashmap_mrt_line
 ```
 
-This algorithm will result in a hashmap (python dictionary) of hashmaps. Additionally, we also labelled whether a service was a trunk service or feeder bus service using information from [SGWiki](https://sgwiki.com/wiki/Bus_Deployments_by_Service). We then converted it into a csv and stores it in **processed_data/busline_score.csv**. A sample of this csv is below:
+This algorithm will result in a hashmap (python dictionary) of hashmaps. Additionally, we also performed a left join on busline_score with bus_services.csv to include the category of bus services. We then converted it into a csv and stored it in **processed_data/busline_score.csv**. A sample of this csv is below:
 
 <img src="images/example_bus_line_score.png" alt="E.g. example busline scores csv" width="100%">
 
@@ -104,14 +123,14 @@ There might be outliers that our distance-based algorithm will not pick up and h
 
 Based on our distance-based algorithm, we have summarized the bus services that had the smallest median distance to a MRT/LRT line whether it is a trunk or feeder service and whether these bus services have routes that run parallel to MRT lines and where redundancies may exist in the table below: 
 
-| **Bus Service** | **Trunk / Feeder Bus Service** |**Route Parallel to MRT** | **Details** | **Median Distance to MRT line for each Bus Stop (m)** | **Recommend Removal / Reroute**
-|--------------|-------------|-------------------------------|-------------|-------------|-------------|
-| 384 (Punggol Temp Int ⟲ Blk 413C, 1 ROUTE ∙ 14 STOPS  ) | Feeder |Yes | The route overlaps with the Punggol LRT, covering similar residential areas throughout | 190 | Yes |
-| 163A (Sengkang Int → Bef Sengkang West Rd, 1 ROUTE ∙ 17 STOPS ) | Trunk |Yes, but this is an edge case | Runs along the Sengkang LRT's West Loop, particularly through Sengkang E Ave. | 193 | No |
-| 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS  ) | Feeder | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. | 210 | Yes |
-| 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS  ) | Trunk | Yes (Partial), but this is an edge case | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Keat Hong, but still mostly require some walking distance. | 217 | No |
-| 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS  ) | Trunk | Yes (Partial), but this is an edge case | Closely follows the Bukit Panjang LRT Line, offering some coverage near Petir stations but still mostly require some walking distance. | 220 | No |
-| 976 (Choa Chu Kang Int ⇄ Bt Panjang Int, 2 ROUTES ∙ 24 STOPS ∙ 25 STOPS  ) | Trunk |Yes | Closely follows Bukit Panjang LRT | 262 | Yes |
+| **Bus Service** | **Trunk / Feeder Bus Service** | **Route Parallel to MRT** | **Details** | **Median Distance to MRT line for each Bus Stop (m)** | **Recommend Removal / Reroute** |
+|:---------------:|:-----------------------------:|:-------------------------:|:-----------:|:-----------------------------------------------:|:------------------------------:|
+| 384 (Punggol Temp Int ⟲ Blk 413C, 1 ROUTE ∙ 14 STOPS) | Feeder | Yes | The route overlaps with the Punggol LRT, covering similar residential areas throughout | 190 | Yes |
+| 163A (Sengkang Int → Bef Sengkang West Rd, 1 ROUTE ∙ 17 STOPS) | Trunk | Yes, but this is an edge case | Runs along the Sengkang LRT's West Loop, particularly through Sengkang E Ave. | 193 | No |
+| 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS) | Feeder | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. | 210 | Yes |
+| 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS) | Trunk | Yes (Partial), but this is an edge case | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Keat Hong, but still mostly require some walking distance. | 217 | No |
+| 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS) | Trunk | Yes (Partial), but this is an edge case | Closely follows the Bukit Panjang LRT Line, offering some coverage near Petir stations but still mostly require some walking distance. | 220 | No |
+| 976 (Choa Chu Kang Int ⇄ Bt Panjang Int, 2 ROUTES ∙ 24 STOPS ∙ 25 STOPS) | Trunk | Yes | Closely follows Bukit Panjang LRT | 262 | Yes |
 
 ### 4.2 Discussion
 
@@ -122,32 +141,32 @@ From a business perspective, removing redundant services or rerouting these bus 
 ### 4.3 Recommendations
 
 - **Bus Service 384**:  
-<img src="images/photo_2024-10-25_21-37-32.jpg" alt="Bus 384" width="500"/>
+<img src="images/bus384.jpg" alt="Bus 384" width="500"/>
 
   Due to its redundancy with the Punggol LRT, **we recommend that this bus service should either be removed or revised to service areas not covered by the LRT**.
 - **Bus Service 163A**:  
-<img src="images/photo_2024-10-25_21-37-28.jpg" alt="Bus 163A" width="500"/>
+<img src="images/bus163A.jpg" alt="Bus 163A" width="500"/>
   
   Even though our distance algorithm produces a small value for the median distance, we recognise this was an edge case. We considered the operating hours of both LRT lines and Bus Service 163A. Bus Service 163A is a trunk service that operates daily from 2346 to 0035 while the Sengkang LRT (West Loop) has last trains at 0013 (West Loop Anti-Clockwise) and 0037 (West Loop Clockwise). Since our distance algorithm does not take into account operating hours, this is an edge case as this bus route is important in servicing commuters in the late night. Therefore, **we do not recommend removing this bus service**.
 - **Bus Service 374**:  
-<img src="images/photo_2024-10-25_21-37-30.jpg" alt="Bus 374" width="500"/>
+<img src="images/bus374.jpg" alt="Bus 374" width="500"/>
   
   Due to its redundancy with the Sengkang LRT, **we recommend that this bus service should either be removed or shortened**.
 - **Bus Service 991B**:  
-<img src="images/photo_2024-10-25_21-37-23.jpg" alt="Bus 991B" width="500"/>
+<img src="images/bus991B.jpg" alt="Bus 991B" width="500"/>
   
   Even though our distance algorithm produces a small value for the median distance, we recognise this was an edge case. We considered the operating hours of both Bukit Panjang LRT line, and Bus Service 991B. Bus Service 991B is a trunk service that operates daily from 0017 to 0055 on weekdays and 0018 to 0055 on weekends while the Bukit Panjang LRT from Choa Chu Kang LRT to Petir LRT has last trains at 2337. Since our distance algorithm does not take into account operating hours, this is an edge case as this bus route is important in servicing commuters in the late night. Therefore, Therefore, **we do not recommend removing this bus service**.
   
 - **Bus Service 973A**:  
-<img src="images/photo_2024-10-25_21-37-25.jpg" alt="Bus 973A" width="500"/>
+<img src="bus973A.jpg" alt="Bus 973A" width="500"/>
   
   Even though our distance algorithm produces a small value for the median distance, we recognise this was an edge case. We considered the operating hours of both Bukit Panjang LRT line, and Bus Service 973A. Bus Service 973A is a trunk service that operates daily from 0030 to 0110 daily while the Bukit Panjang LRT towards Choa Chu Kang LRT has last trains at 2330. Since our distance algorithm does not take into account operating hours, this is an edge case as this bus route is important in servicing commuters in the late night. Therefore, **we do not recommend removing this bus service**.
 
 - **Bus Service 976**:
 
 <div style="display: flex; gap: 10px;">
-    <img src="images/IMG_5988.jpg" alt="Bus 976" width="500"/>
-    <img src="images/IMG_5989.jpg" alt="Bus 976" width="500"/>
+    <img src="images/bus976_1.jpg" alt="Bus 976" width="500"/>
+    <img src="images/bus976_2.jpg" alt="Bus 976" width="500"/>
 </div>
 
 Closely overlaping with Bukit Panjang LRT along Choa Chu Kang Way and Bukit Panjang Ring Rd, most bus stops serve as a more frequent stop point along the Bukit Panjang LRT. **We recommend that this bus service should either be removed or shortened**.
