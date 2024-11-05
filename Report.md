@@ -149,7 +149,7 @@ In our project, the distance algorithm served to be a good proxy for shortlistin
 <img src="images/IMG_5988.jpg" alt="Bus 976" width="500"/>
 <img src="images/IMG_5989.jpg" alt="Bus 976" width="500"/>
 
-Largely overlaping  along choa chu kang wy and Bukit Panjang Ring Rd
+Largely overlaping along Choa Chu Kang Way and Bukit Panjang Ring Rd
 
 - **Bus Service 114A**:
 <img src="images/IMG_5987.jpg" alt="Bus 976" width="500"/>
