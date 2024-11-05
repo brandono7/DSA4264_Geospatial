@@ -148,13 +148,13 @@ In our project, the distance algorithm served to be a good proxy for shortlistin
 
 - **Bus Service 976**:
 
-<img src="images/IMG_5988" alt="Bus 976" width="500"/>
-<img src="images/IMG_5989" alt="Bus 976" width="500"/>
+<img src="images/IMG_5988.jpg" alt="Bus 976" width="500"/>
+<img src="images/IMG_5989.jpg" alt="Bus 976" width="500"/>
 
 Largely overlaping  along choa chu kang wy and Bukit Panjang Ring Rd
 
 - **Bus Service 114A**:
-<img src="images/IMG_5987" alt="Bus 976" width="500"/>
+<img src="images/IMG_5987.jpg" alt="Bus 976" width="500"/>
 Parallel to ...LRT but from a distance
 
 ### Future Steps:
