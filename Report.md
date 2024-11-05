@@ -111,6 +111,8 @@ After analyzing bus routes 163A and 384 along with the previously provided lines
 | 374 (Compassvale Int ⟲ Thanggam Stn, 1 ROUTE ∙ 19 STOPS  ) | Yes | The route runs parallel to the Sengkang LRT in sections near Anchorvale Link and Fernvale St, covering similar areas to the LRT. | 210 | Yes |
 | 991B (Choa Chu Kang Int → Opp Choa Chu Kang Mkt, 1 ROUTE ∙ 6 STOPS  ) | Yes (Partial), but this is an edge case | Parallels the North-South MRT Line overall and Bukit Panjang LRT near Keat Hong, but still mostly require some walking distance. | 217 | No |
 | 973A (Bt Panjang Int → Bef Pending Stn, 1 ROUTE ∙ 4 STOPS  ) | Yes (Partial), but this is an edge case | Closely follows the Bukit Panjang LRT Line, offering some coverage near Petir stations but still mostly require some walking distance. | 220 | No |
+| 976 (Choa Chu Kang Int ⇄ Bt Panjang Int, 2 ROUTES ∙ 24 STOPS ∙ 25 STOPS  ) | Yes | Closely follow Bukit Panjang LRT |. | Yes |
+| 114A (Buangkok Stn Exit B → Blk 998B, 1 ROUTE ∙ 6 STOPS) | Yes (Partial) | Parallel to Sengkang (west loop) and a small part covered by North-east line |. | No |
 
 ### 4.2 Discussion
 
@@ -146,14 +148,16 @@ In our project, the distance algorithm served to be a good proxy for shortlistin
 
 - **Bus Service 976**:
 
-<img src="images/IMG_5988.jpg" alt="Bus 976" width="500"/>
-<img src="images/IMG_5989.jpg" alt="Bus 976" width="500"/>
+<div style="display: flex; gap: 10px;">
+    <img src="images/IMG_5988.jpg" alt="Bus 976" width="500"/>
+    <img src="images/IMG_5989.jpg" alt="Bus 976" width="500"/>
+</div>
 
-Largely overlaping along Choa Chu Kang Way and Bukit Panjang Ring Rd
+Closely overlaping with Bukit Panjang LRT along choa chu kang wy and Bukit Panjang Ring Rd, most bus stops serve as a more frequent stop point along the Bukit Panjang LRT. **We recommend that this bus service should either be removed or shortened**.
 
 - **Bus Service 114A**:
 <img src="images/IMG_5987.jpg" alt="Bus 976" width="500"/>
-Parallel to ...LRT but from a distance
+Parallel to Sengkang (west loop) LRT but from a distance, especially near Buangkok Square. **We do not recommend removing this bus service**.
 
 ### Future Steps:
 1. **Passenger Data Analysis**: In the absence of ridership data, these recommendations are based on visual analysis of redundancy. If passenger volume data was more granular and not aggregated, such that we have passenger load data on the number of tap-in and tap-out data for each bus service at every bus stop on the bus route, this would enable us to consider a passenger-volume weighted distance algorithm to provide a clearer picture of where changes will have the most significant impact, where a lower passenger volume on that bus service will penalise that bus service.
