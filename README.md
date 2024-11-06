@@ -30,7 +30,7 @@ In this python script, after obtaining the latitude and longitude of each bus st
 
 3) [Bus Algorithm.ipynb](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Bus%20Algorithm.ipynb) 
 
-In this python script, we implement a distance algorithm. We read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It obtains the nearest median distance to each MRT/LRT line from every bus stop within a bus route service. Additionally, we also labelled whether a service was a trunk service or feeder bus service using information from [SGWiki](https://sgwiki.com/wiki/Bus_Deployments_by_Service). This bus algorithm serves as our first round of screening for bus routes to be removed. More nuanced considerations will be detailed in our [Report.md](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Report.md).
+In this python script, we implement a distance algorithm. We read in the bus routes data from **data/bus_routes.csv** and the **bus_stops_with_nearest_mrt_data.csv**. It obtains the nearest median distance to each MRT/LRT line from every bus stop within a bus route service. Additionally, we also labelled whether a service was a trunk service or feeder bus service using information from LTA DataMall. This bus algorithm serves as our first round of screening for bus routes to be removed. More nuanced considerations will be detailed in our [Report.md](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Report.md).
 
 [Report.md](https://github.com/brandono7/DSA4264_Geospatial/blob/main/Report.md) is the technical report for our project.
 
