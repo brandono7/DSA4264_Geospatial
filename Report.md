@@ -20,21 +20,36 @@ Using openly available data from LTA website and by leveraging on data science a
 The Public Transportation team faces a significant challenge due to the expansion of MRT lines in Singapore. This has decreased the ridership of parallel bus routes. This shift indicates a redundancy in certain trunk bus services, which historically served as primary transport options but are now less utilized due to the MRT's speed and predictability advantages. With limited budgetary resources, there is an urgent need to assess which bus routes overlap significantly with MRT lines and could be discontinued. However, we are also wary, given the example of [bus service 167](https://www.straitstimes.com/singapore/transport/lta-u-turns-on-decision-to-stop-bus-service-167-route-to-be-retained-with-30-minute-intervals) in 2023, which was retained by the LTA with a longer frequency after public objections. Despite running parallel with the newly opened TEL, it provided a vital direct connection (with no multiple transfers) from Northern Singapore to the city.
 
 ### 2.2 Success Criteria: What would success look like and how we measure it
-Success in this project would involve identifying specific bus routes that overlap significantly with MRT lines and could be optimized for efficiency. This optimization may include complete removal or partial rerouting of these bus services.
+Success in this project would involve identifying specific bus routes that overlap significantly with MRT lines and could be optimized for efficiency. This optimization may include complete removal or partial rerouting of these bus services. Therefore, we have come up with the below success criteria to spur the success of the project and improve LTA's resource utilisation :
 
-Success Measures:
-1. Identification of Redundant Routes: Successfully identifying at least 2-3 bus routes with significant overlap with MRT lines that can either be removed or rerouted.
-2. Cost Savings and Resource Reallocation: Quantifying the potential cost savings from reducing or rerouting these bus services and demonstrating how these savings could be redirected to fund new or underserved routes. Based on a [ST report](https://www.straitstimes.com/singapore/transport/deficit-for-public-bus-operations-narrows-to-852m-lowest-in-7-years) on 1st November 2024, the shortening of two bus services 75 and 162, which ran parallel to parts of TE line, the termination of 162M and the reduced frequency on bus service 167 had led to an annual cost savings of $5.1 million in total. This exhibits how just cutting a few redundant bus services can lead to substantial cost savings. 
-3. Feasibility for Future Expansions: Establishing a replicable methodology that can be applied to future MRT lines, such as the Jurong Region Line, to continuously optimize bus services as the MRT network expands.
+1. The first success measure is the identification of Redundant Routes
+* Successfully identifying at least 2-3 bus routes with significant overlap with MRT lines that can either be removed or rerouted.
+
+2. The second measure is quanitifying cost savings and resource reallocation
+* Quantifying the potential cost savings from reducing or rerouting these bus services and demonstrating how these savings could be redirected to fund new or underserved routes. Based on a [ST report](https://www.straitstimes.com/singapore/transport/deficit-for-public-bus-operations-narrows-to-852m-lowest-in-7-years) on 1st November 2024, the shortening of two bus services 75 and 162, which ran parallel to parts of TE line, the termination of 162M and the reduced frequency on bus service 167 had led to an annual cost savings of $5.1 million in total. This exhibits how just cutting a few redundant bus services can lead to substantial cost savings. 
+
+3. Lastly, our project's success can also be measured by the feasibility for future expansions
+* Establishing a replicable methodology that can be applied to future MRT lines, such as the Jurong Region Line, to continuously optimize bus services as the MRT network expands.
 
 This project’s success would be evident if these outcomes are achieved, leading to an improved public transportation framework, optimized resource allocation, and enhanced commuter experience​.
 
 ### 2.3 Assumptions
-1. Definition of Parallelism: **For each bus service on each route, we measure the parallelism by using the median distance to MRT stations for all the bus stops within the bus route as a proxy.** 
-2. Ridership Trends Reflect Declining Usage of Overlapping Bus Services: Based on surveys conducted and anecdotal evidence, we assume that the ridership decline on certain bus routes that run parallel to MRT stations is a direct result of the MRT expansion. 
-3. Consistency of Commuter Needs with Identified Overlap: We assume that areas with MRT and bus route overlap do not have additional unmet needs for bus services, and removing or reducing overlapping services will not adversely affect commuter convenience in these regions.
-4. Data Limitations and Public Dataset Reliability: We assume that these public datasets will provide a representative picture of ridership patterns, although we acknowledge limitations in data granularity and completeness​ due to the internal bus and MRT ridership datasets not being accessible. 
-5. Hypothesis of Overlap and Service Redundancy: We hypothesize that routes showing significant spatial overlap with MRT lines contribute to inefficiencies in the transport network and that reducing or rerouting these services will improve operational efficiency and funding allocation.
+There are some assumptions that could potentially impact the effectiveness of our proposed solutions:
+
+1. The first assumption would be the definition of Parallelism
+* For each bus service on each route, we measure the parallelism by using the median distance to MRT stations for all the bus stops within the bus route as a proxy.
+
+2. The second assumption would be assuming that ridership trends reflect declining usage of overlapping bus services
+* Based on surveys conducted and anecdotal evidence, we assume that the ridership decline on certain bus routes that run parallel to MRT stations is a direct result of the MRT expansion. 
+
+3. The third assumption would be assuming that consumer needs correlates with the extent of overlap of the MRT lines and bus routes
+* We assume that areas with MRT and bus route overlap do not have additional unmet needs for bus services, and removing or reducing overlapping services will not adversely affect commuter convenience in these regions.
+
+4. Fourthly, we also made assumptions relating to the reliability of public datasets 
+* We assume that these public datasets will provide a representative picture of ridership patterns, although we acknowledge limitations in data granularity and completeness​ due to the internal bus and MRT ridership datasets not being accessible. 
+
+5. The last assumption is the hypothesis relating to overlap and service redundancy
+* We hypothesize that routes showing significant spatial overlap with MRT lines contribute to inefficiencies in the transport network and that reducing or rerouting these services will improve operational efficiency and funding allocation.
 
 ---
 
